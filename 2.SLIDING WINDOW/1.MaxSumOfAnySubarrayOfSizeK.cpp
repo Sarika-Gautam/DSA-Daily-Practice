@@ -1,26 +1,34 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-
+int main()
+{
     int arr[] = {2, 1, 5, 1, 3, 2};
-    int k = 3;
     int n = 6;
+    int k = 3;
 
-    int maxSum = 0;
+    int sum = 0;
 
-    for(int i = 0; i <= n - k; i++) {
-
-        int sum = 0;
-
-        for(int j = i; j < i + k; j++) {
-            sum += arr[j];
-        }
-
-        maxSum = max(maxSum, sum);
+    // First window
+    for(int i = 0; i < k; i++)
+    {
+        sum += arr[i];
     }
 
-    cout << "Maximum Sum = " << maxSum;
+    int maxSum = sum;
+
+    // Slide the window
+    for(int i = k; i < n; i++)
+    {
+        sum = sum + arr[i] - arr[i - k];
+
+        if(sum > maxSum)
+        {
+            maxSum = sum;
+        }
+    }
+
+    cout << maxSum;
 
     return 0;
 }
